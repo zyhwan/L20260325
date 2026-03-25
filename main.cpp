@@ -21,6 +21,7 @@ int main()
 	cout << s2.GetStr() << endl;
 	cout << s3.GetStr() << endl;
 	cout << s4.GetStr() << endl;
+	cout << s4[1] << endl;
 
 	return 0;
 }

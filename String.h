@@ -1,8 +1,7 @@
 #pragma once
-#define _CRT_SECURE_NO_WARNINGS
-
 #include <iostream>
 #include <string>
+#include<stdexcept>
 
 class String
 {
@@ -30,77 +29,31 @@ public:
 	}
 
 	//복사 생성자
-	String(const String& rhs) //읽기 전용으로 다른 객체를 가져옴.
+	String(const String& other) //읽기 전용으로 다른 객체를 가져옴.
 	{
-		length = rhs.length;
+		length = other.length;
 		Alloc();
-		Copy(rhs);
+		Copy(other);
 	}
 
 	// =연산자 오버로딩
-	String& operator=(const char* rhs)
-	{
-		length = GetLength(rhs);
-		if (STR != nullptr)
-		{
-			delete[] STR;
-		}
-		Alloc();
-		Copy(rhs);
-		return *this;
-	}
-	String& operator=(const String& rhs)
-	{
-		length = rhs.length;
-		if (STR != nullptr)
-		{
-			delete[] STR;
-		}
-		Alloc();
-		Copy(rhs);
-		return *this;
-	}
+	String& operator=(const char* rhs);
+	String& operator=(const String& rhs);
 
 	//+연산자 오버로딩
-	const char* operator+(const char* other)
-	{
-		int len = length + GetLength(other);
-		int OtherLength = GetLength(other);
-		char* TempString = new char[len + 1];
-		
-		for (int i = 0; i < length; ++i)
-		{
-			TempString[i] = STR[i];
-		}
-		for (int i = 0; i < OtherLength; ++i)
-		{
-			TempString[i + length] = other[i];
-		}
-		TempString[len] = '\0';
+	const char* operator+(const char* other);
+	String operator+(const String& other);
 
-		return TempString;
+	//[]연산자 오버로딩
+	const char& operator[](int Index)
+	{
+		if (Index < 0 || Index > length)
+		{
+			throw std::exception("인덱스 범위를 벗어남");
+		}
+		return STR[Index];
 	}
 
-	String operator+(const String& other)
-	{
-		String TempString;
-		int OtherLength = GetLength(other);
-		TempString.length = length + OtherLength;
-		TempString.Alloc();
-
-		for (int i = 0; i < length; ++i)
-		{
-			TempString.STR[i] = STR[i];
-		}
-		for (int i = 0; i < OtherLength; ++i)
-		{
-			TempString.STR[i + length] = other.STR[i];
-		}
-
-		TempString.STR[TempString.length] = '\0';
-
-		return TempString;
-	}
 
 	//문자열 받기
 	char* GetStr() const
