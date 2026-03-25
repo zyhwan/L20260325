@@ -23,6 +23,12 @@ int main()
 	OurArray.Push_Back(7);
 	OurArray.Push_Back(8);
 	OurArray.Push_Back(9);
+	OurArray.Push_Back(10);
+	OurArray.Push_Back(11);
+	OurArray.Push_Back(12);
+	OurArray.Push_Back(13);
+	OurArray.Push_Back(14);
+	OurArray.Push_Back(15);
 
 
 	for (int i = 0; i < OurArray.GetSize(); ++i)

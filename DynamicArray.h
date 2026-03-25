@@ -23,17 +23,7 @@ public:
 		}
 		else
 		{
-			if (Size == 1)
-			{
-				int* NewData = new int[Capacity];
-				for (int i = 0; i < Size - 1; ++i)
-				{
-					NewData[i] = Data[i];
-				}
-				delete[] Data;
-				Data = NewData;
-			}
-			if (Size > Capacity) //만약에 용량을 넘어서면
+			if (Size >= Capacity) //만약에 용량을 넘어서면
 			{
 				Capacity *= 2;
 				int* NewData = new int[Capacity];
@@ -48,9 +38,9 @@ public:
 	}
 	void Push_Back(const int InValue)
 	{
-		ReSize();
-		Data[Size] = InValue;
 		Size++;
+		ReSize();
+		Data[Size - 1] = InValue;
 	}
 
 
