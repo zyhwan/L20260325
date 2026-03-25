@@ -37,6 +37,15 @@ int main()
 		cout << OurArray[i] << endl; //OurArray.operator[](i)와 같은 의미.
 	}
 
+	OurArray.erase(1);
+
+	for (int i = 0; i < OurArray.GetSize(); ++i)
+	{
+		//cout << OurArray.Data[i] << endl;
+		cout << OurArray[i] << endl; //OurArray.operator[](i)와 같은 의미.
+	}
+
+
 	cout << "수용량: " << OurArray.Capacity << endl;
 
 	return 0;

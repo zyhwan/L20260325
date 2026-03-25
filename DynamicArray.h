@@ -43,6 +43,17 @@ public:
 		Data[Size - 1] = InValue;
 	}
 
+	void erase(const int IDX)
+	{
+		if (IDX < Size)
+		{
+			for (int i = IDX; i < Size; ++i)
+			{
+				Data[i] = Data[i + 1];
+			}
+			Size--;
+		}
+	}
 
 	//void Push_Back(const int InValue)
 	//{
