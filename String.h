@@ -40,6 +40,10 @@ public:
 	String& operator=(const char* rhs)
 	{
 		length = GetLength(rhs);
+		if (STR != nullptr)
+		{
+			delete[] STR;
+		}
 		Alloc();
 		Copy(rhs);
 		return *this;
@@ -61,18 +65,30 @@ public:
 	{
 		int len = length + GetLength(rhs);
 		char* TempString = new char[len + 1];
-		Copy(TempString);
-		AddString(TempString, length);
+		
+		for (int i = 0; i < length; ++i)
+		{
+			TempString[i] = STR[i];
+		}
+		int j = 0;
+		for (int i = length; i < len; ++i)
+		{
+			TempString[i] = rhs[j];
+			j++;
+		}
+		TempString[len] = '\0';
 
 		return TempString;
 	}
 	String& operator+(String& rhs)
 	{
-		char* TempString;
+		String TempString;
+
+		
 
 
 
-		return *this;
+		return TempString;
 	}
 
 	//문자열 받기
@@ -112,13 +128,14 @@ public:
 	}
 
 	//뒤에 추가하기
-	void AddString(const char* rhs, int StartLen)
+	void AddString(const char* rhs, int Length)
 	{
-		for (int i = StartLen; i < length; ++i)
+		for (int i = length; i < Length; ++i)
 		{
 			STR[i] = rhs[i];
 		}
-		STR[length] = '\0';
+		STR[Length] = '\0';
+		length = Length;
 	}
 	void AddString(const String& rhs, int StartLen)
 	{
