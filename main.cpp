@@ -1,47 +1,37 @@
 //Standard Template Library
 #include <iostream>
 #include <vector>
-#include <array>
-#include <list>
+#include "DynamicArray.h"
+
+using namespace std;
+
 
 int main()
 {
-	std::vector<int> IntDArray;
-	std::array<int, 5> IntArray{ 0, };
+	DynamicArray OurArray;
 
-	IntDArray.push_back(1);
-	IntDArray.push_back(2);
-	IntDArray.push_back(3);
-	IntDArray.push_back(4);
-	IntDArray.push_back(5);
+	vector<int> v;
 
-	for (int i = 0; i < IntDArray.size(); ++i)
+	v.resize(5);
+
+	OurArray.Push_Back(1);
+	OurArray.Push_Back(2);
+	OurArray.Push_Back(3);
+	OurArray.Push_Back(4);
+	OurArray.Push_Back(5);
+	OurArray.Push_Back(6);
+	OurArray.Push_Back(7);
+	OurArray.Push_Back(8);
+	OurArray.Push_Back(9);
+
+
+	for (int i = 0; i < OurArray.GetSize(); ++i)
 	{
-		std::cout << IntDArray[i] << std::endl;
-		std::cout << IntArray[i] << std::endl;
-	}
-	
-	std::list<int> IntList;
-
-	IntList.push_back(1);
-	IntList.push_back(2);
-	IntList.push_back(3);
-	IntList.push_back(4);
-
-	//iterator, 반복자 <- 포인터
-	IntList.begin();
-	IntList.end();
-
-	for (std::list<int>::iterator i = IntList.begin(); i != IntList.end(); ++i)
-	{
-		std::cout << *i << std::endl;
+		//cout << OurArray.Data[i] << endl;
+		cout << OurArray[i] << endl; //OurArray.operator[](i)와 같은 의미.
 	}
 
-	for (auto i : IntList) //auto로 i의 자료형을 컴파일 단계에서 정해준다. 
-	{
-		std::cout << i << std::endl;
-	}
+	cout << "수용량: " << OurArray.Capacity << endl;
 
-
-
+	return 0;
 }
