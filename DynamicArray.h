@@ -2,11 +2,18 @@
 //만약 한번 include 했다면 더 안하게 하는 것.
 #ifndef __DynamicArray_H__
 #define __DynamicArray_H__
+#include<stdexcept>
+
 
 class DynamicArray
 {
 public:
-	DynamicArray() : Data(nullptr), Size(0), Capacity(1)
+	DynamicArray() : Data(new int[1]), Size(0), Capacity(1)
+	{
+
+	}
+	DynamicArray(int InitCapacity) : Data(new int[InitCapacity]), 
+		Size(0), Capacity(InitCapacity)
 	{
 
 	}
@@ -45,6 +52,10 @@ public:
 
 	void erase(const int IDX)
 	{
+		if (IDX >= Size || Size < 0)
+		{
+			throw std::out_of_range("인덱스가 범위를 범어남.");
+		}
 		if (IDX < Size)
 		{
 			for (int i = IDX; i < Size; ++i)
@@ -55,69 +66,24 @@ public:
 		}
 	}
 
-	//void Push_Back(const int InValue)
-	//{
-	//	Size++; //Push_back()을 한다면 크기를 한개씩 늘린다.
-	//	if (Size > Capacity) //만약 수용량보다 Size가 커진다면
-	//	{
-	//		Capacity *= 2; //Capacity 크기를 2배씩 늘린다.
-
-	//		//1. 늘어난 영역 만큼 새로 할당.
-	//		int* NewData = new int[Capacity];
-
-	//		//2. 원본 복제
-	//		for (int i = 0; i < Size - 1; ++i)
-	//		{
-	//			NewData[i] = Data[i];
-	//		}
-
-	//		//3. 새로들어온 값을 넣는다.
-	//		NewData[Size - 1] = InValue;
-
-	//		//4. 원래 있는걸 지운다.
-	//		delete[] Data;
-
-	//		//5. 원래 데이터의 포인터에 새 데이터 포인터 연결
-	//		Data = NewData;
-	//	}
-	//	else //수용량 보다 작거나 같다면
-	//	{
-	//		if (Size == 1) //처음에만 하나 할당.
-	//		{
-	//			//1. 늘어난 영역 만큼 새로 할당.
-	//			int* NewData = new int[Size];
-
-	//			//2. 원본 복제
-	//			for (int i = 0; i < Size - 1; ++i)
-	//			{
-	//				NewData[i] = Data[i];
-	//			}
-
-	//			//3. 새로들어온 값을 넣는다.
-	//			NewData[Size - 1] = InValue;
-
-	//			//4. 원래 있는걸 지운다.
-	//			delete[] Data;
-
-	//			//5. 원래 데이터의 포인터에 새 데이터 포인터 연결
-	//			Data = NewData;
-
-	//			return;
-	//		}
-	//		Data[Size - 1] = InValue; //수용량을 넘지 않았다면 원래 할당한 메모리 영역에 데이터 넣기.
-	//	}
-	//}
-
 	inline size_t GetSize() const //멤버 함수 뒤에 붙은 const는 본인 멤버 변수의 변경을 막겠는다는 의미. (읽기 전용)
 	{
 		return Size;
 	}
-
+	inline size_t GetCapacity() const //멤버 함수 뒤에 붙은 const는 본인 멤버 변수의 변경을 막겠는다는 의미. (읽기 전용)
+	{
+		return Capacity;
+	}
 	//원본 데이터를 복사하는 것은 비용이 너무 크다. 그래서 C++에서는 &래퍼런스 참조를 지원해줘서 원본데이터의 주소를 넘길 수 있다.
 	//&로 리턴해주기 때문에 이 객체의 Data의 주소를 넘겨준다. 그래서 '변수[0] = 데이터 값' 이런식으로 참조할 수 있다.
 	//하지만 const를 int& 앞에 붙여주면 리턴값 변경이 불가하기 때문에 외부에서 반환값을 바꾸지 못한다.
 	const int& operator[](int Index) const
 	{
+		if (Index > Size)
+		{
+			//throw std::out_of_range("인덱스가 범위를 범어남");
+			throw std::exception("인덱스가 범위를 범어남");
+		}
 		return Data[Index];
 	}
 
