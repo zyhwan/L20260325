@@ -7,7 +7,7 @@
 class String
 {
 public:
-	String() : STR(nullptr), length(0), prev_len(0)
+	String() : STR(nullptr), length(0)
 	{
 
 	}
@@ -62,10 +62,10 @@ public:
 	}
 
 	//+연산자 오버로딩
-	const char* operator+(const char* rhs)
+	const char* operator+(const char* other)
 	{
-		int len = length + GetLength(rhs);
-		int OtherLength = GetLength(rhs);
+		int len = length + GetLength(other);
+		int OtherLength = GetLength(other);
 		char* TempString = new char[len + 1];
 		
 		for (int i = 0; i < length; ++i)
@@ -74,7 +74,7 @@ public:
 		}
 		for (int i = 0; i < OtherLength; ++i)
 		{
-			TempString[i + length] = rhs[i];
+			TempString[i + length] = other[i];
 		}
 		TempString[len] = '\0';
 
@@ -107,6 +107,7 @@ public:
 	{
 		return STR;
 	}
+
 	int GetLen()
 	{
 		return length;
@@ -138,7 +139,7 @@ public:
 		STR[length] = '\0';
 	}
 
-	//길이 반환
+	//문자열 넣으면 길이 반환
 	int GetLength(const char* rhs) const
 	{
 		int len = 0;
@@ -160,6 +161,5 @@ public:
 private:
 	char* STR; //문자 포인터
 	int length;//문자열 길이
-	int prev_len;
 };
 
