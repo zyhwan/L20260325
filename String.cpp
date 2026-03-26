@@ -48,7 +48,7 @@ const char* String::operator+(const char* other)
 String String::operator+(const String& other)
 {
 	String TempString;
-	int OtherLength = GetLength(other);
+	size_t OtherLength = GetLength(other);
 	TempString.length = length + OtherLength;
 	TempString.Alloc();
 
@@ -73,4 +73,31 @@ const char& String::operator[](int Index) const
 		throw std::exception("ÀÎµ¦½º ¹üÀ§¸¦ ¹þ¾î³²");
 	}
 	return STR[Index];
+}
+
+String& String::operator+=(const char* other)
+{
+	String temp(*this); //ÀÓ½Ã °´Ã¼
+	length = length + GetLength(other);
+
+	if (STR != nullptr)
+	{
+		delete[] STR;
+	}
+
+	STR = new char[length + 1];
+
+	for (int i = 0; i < temp.length; ++i)
+	{
+		STR[i] = temp.STR[i];
+	}
+
+	for (int i = 0; i < GetLength(other); ++i)
+	{
+		STR[i + temp.length] = other[i];
+	}
+
+	STR[length] = '\0';
+
+	return *this;
 }

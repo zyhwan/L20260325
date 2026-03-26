@@ -6,9 +6,9 @@
 class String
 {
 public:
-	String() : STR(nullptr), length(0)
+	String() : STR(new char[1]), length(0)
 	{
-
+		STR[0] = '\0';
 	}
 	~String()
 	{
@@ -19,7 +19,6 @@ public:
 			STR = nullptr;
 		}
 	}
-
 	//기본 생성자
 	String(const char* str)
 	{
@@ -48,38 +47,18 @@ public:
 	const char& operator[](int Index) const;
 
 	//+= 연산자 오버로딩
-	String& operator+=(const char* other)
-	{
-		String temp(*this); //임시 객체
-		length = length + GetLength(other);
-
-		if (STR != nullptr)
-		{
-			delete[] STR;
-		}
-
-		STR = new char[length + 1];
-
-		for (int i = 0; i < temp.length; ++i)
-		{
-			STR[i] = temp.STR[i];
-		}
-
-		for (int i = 0; i < GetLength(other); ++i)
-		{
-			STR[i + temp.length] = other[i];
-		}
-
-		STR[length] = '\0';
-
-		return *this;
-	}
+	String& operator+=(const char* other);
 
 	//문자열 받기
-	char* GetStr() const
+	inline const char* GetStr() const
 	{
 		return STR;
 	}
+
+
+private:
+	char* STR; //문자 포인터
+	size_t length;//문자열 길이
 
 	//메모리 확보하기
 	void Alloc()
@@ -108,26 +87,25 @@ public:
 	}
 
 	//문자열 넣으면 길이 반환
-	int GetLength(const char* rhs) const
+	size_t GetLength(const char* rhs) const
 	{
-		int len = 0;
+		size_t len = 0;
 		for (int i = 0; rhs[i] != '\0'; ++i)
 		{
 			++len;
 		}
 		return len;
 	}
-	int GetLength(const String& rhs) const
+	size_t GetLength(const String& rhs) const
 	{
-		int len = 0;
+		size_t len = 0;
 		for (int i = 0; rhs.STR[i] != '\0'; ++i)
 		{
 			++len;
 		}
 		return len;
 	}
-private:
-	char* STR; //문자 포인터
-	int length;//문자열 길이
+
+
 };
 

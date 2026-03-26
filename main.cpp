@@ -15,7 +15,7 @@ int main()
 	String s4;
 
 	s1 = s2 + "abc";
-	s4 = s1 + s2;
+	s4 = s1 + s2 + s3;
 
 	s4 += "ddd";
 
