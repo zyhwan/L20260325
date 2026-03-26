@@ -48,6 +48,9 @@ public:
 
 	//+= 연산자 오버로딩
 	String& operator+=(const char* other);
+	String& operator+=(const String& other);
+
+	bool operator==(const String& other);
 
 	//문자열 받기
 	inline const char* GetStr() const

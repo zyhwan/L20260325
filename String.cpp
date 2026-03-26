@@ -101,3 +101,26 @@ String& String::operator+=(const char* other)
 
 	return *this;
 }
+
+String& String::operator+=(const String& other)
+{
+	// TODO: insert return statement here
+
+
+
+}
+
+bool String::operator==(const String& other)
+{
+	int LargeLength = (length > other.length) ? length : other.length;
+
+	for (int i = 0; i < LargeLength; ++i)
+	{
+		if (STR[i] != other.STR[i])
+		{
+			return false;
+		}
+	}
+
+	return true;
+}
