@@ -65,3 +65,12 @@ String String::operator+(const String& other)
 
 	return TempString;
 }
+
+const char& String::operator[](int Index) const
+{
+	if (Index < 0 || Index > length)
+	{
+		throw std::exception("ÀÎµ¦½º ¹üÀ§¸¦ ¹þ¾î³²");
+	}
+	return STR[Index];
+}

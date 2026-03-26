@@ -45,25 +45,40 @@ public:
 	String operator+(const String& other);
 
 	//[]연산자 오버로딩
-	const char& operator[](int Index)
-	{
-		if (Index < 0 || Index > length)
-		{
-			throw std::exception("인덱스 범위를 벗어남");
-		}
-		return STR[Index];
-	}
+	const char& operator[](int Index) const;
 
+	//+= 연산자 오버로딩
+	String& operator+=(const char* other)
+	{
+		String temp(*this); //임시 객체
+		length = length + GetLength(other);
+
+		if (STR != nullptr)
+		{
+			delete[] STR;
+		}
+
+		STR = new char[length + 1];
+
+		for (int i = 0; i < temp.length; ++i)
+		{
+			STR[i] = temp.STR[i];
+		}
+
+		for (int i = 0; i < GetLength(other); ++i)
+		{
+			STR[i + temp.length] = other[i];
+		}
+
+		STR[length] = '\0';
+
+		return *this;
+	}
 
 	//문자열 받기
 	char* GetStr() const
 	{
 		return STR;
-	}
-
-	int GetLen()
-	{
-		return length;
 	}
 
 	//메모리 확보하기

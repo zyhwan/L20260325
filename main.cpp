@@ -17,6 +17,8 @@ int main()
 	s1 = s2 + "abc";
 	s4 = s1 + s2;
 
+	s4 += "ddd";
+
 	cout << s1.GetStr() << endl;
 	cout << s2.GetStr() << endl;
 	cout << s3.GetStr() << endl;
